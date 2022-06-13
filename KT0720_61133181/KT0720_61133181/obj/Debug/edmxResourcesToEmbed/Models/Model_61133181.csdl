@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KT0720_61133181Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="LOP">
+    <Key>
+      <PropertyRef Name="MaLop" />
+    </Key>
+    <Property Name="MaLop" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenLop" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="SINHVIENs" Relationship="KT0720_61133181Model.FK__SINHVIEN__MaLop__4AB81AF0" FromRole="LOP" ToRole="SINHVIEN" />
+  </EntityType>
+  <EntityContainer Name="KT0720_61133181Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="LOPs" EntityType="Self.LOP" />
+    <EntitySet Name="SINHVIENs" EntityType="KT0720_61133181Model.SINHVIEN" />
+    <AssociationSet Name="FK__SINHVIEN__MaLop__4AB81AF0" Association="KT0720_61133181Model.FK__SINHVIEN__MaLop__4AB81AF0">
+      <End Role="LOP" EntitySet="LOPs" />
+      <End Role="SINHVIEN" EntitySet="SINHVIENs" />
+    </AssociationSet>
+    <FunctionImport Name="SinhVien_TimKiem">
+      <Parameter Name="MaSV" Mode="In" Type="String" />
+      <Parameter Name="HoTen" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="SINHVIEN">
+    <Key>
+      <PropertyRef Name="MaSV" />
+    </Key>
+    <Property Name="MaSV" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="HoSV" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="TenSV" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="NgaySinh" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="GioiTinh" Type="Boolean" />
+    <Property Name="AnhSV" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MaLop" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="LOP" Relationship="KT0720_61133181Model.FK__SINHVIEN__MaLop__4AB81AF0" FromRole="SINHVIEN" ToRole="LOP" />
+  </EntityType>
+  <Association Name="FK__SINHVIEN__MaLop__4AB81AF0">
+    <End Type="KT0720_61133181Model.LOP" Role="LOP" Multiplicity="1" />
+    <End Type="KT0720_61133181Model.SINHVIEN" Role="SINHVIEN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOP">
+        <PropertyRef Name="MaLop" />
+      </Principal>
+      <Dependent Role="SINHVIEN">
+        <PropertyRef Name="MaLop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
